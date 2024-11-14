@@ -35,9 +35,11 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-
     // common-lib
     implementation files('../common-lib/build/libs/common-lib.jar')
+
+    // utils
+   	implementation 'org.apache.commons:commons-lang3:3.17.0'
 }
 
 tasks.named('test') {

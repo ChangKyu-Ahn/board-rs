@@ -6,3 +6,18 @@ spring:
     name: board-rs
   main:
     banner-mode: off
+  datasource:
+    url: jdbc:log4jdbc:h2:mem:testdb;
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

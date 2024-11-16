@@ -10,4 +10,5 @@ public class Board extends Identifier<Long> {
 	private String title;
 	private String content;
 	private String userId;
+	private Long viewCount;
 }

@@ -1,4 +1,4 @@
-package co.kr.board.modules.framework.output.rdb;
+package co.kr.board.modules.framework.output.rdb.data;
 
 import co.kr.board.modules.domain.entity.Board;
 import jakarta.persistence.Column;
@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,9 +31,16 @@ public class BoardData {
 	@Column(length = 500, nullable = false, columnDefinition = "TEXT")
 	private String content;
 
+	@Default
+	private Long viewCount = 0L;
+
 	// ################################################################
 	public void update(Board board) {
 		this.title = board.getTitle();
 		this.content = board.getContent();
+	}
+
+	public void updateCount() {
+		this.viewCount += 1;
 	}
 }

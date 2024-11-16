@@ -4,5 +4,5 @@ import co.kr.board.modules.framework.input.rest.dto.BoardCreate;
 import co.kr.common.domain.vo.Identifier;
 
 public interface BoardCreateUsecase {
-	Identifier<String> create(BoardCreate userCreate);
+	Identifier<Long> create(BoardCreate boardCreate);
 }

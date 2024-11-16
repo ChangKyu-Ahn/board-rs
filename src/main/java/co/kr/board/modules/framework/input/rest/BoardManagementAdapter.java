@@ -6,10 +6,8 @@ import co.kr.board.modules.application.usecase.BoardRetrieveUsecase;
 import co.kr.board.modules.application.usecase.BoardUpdateUsecase;
 import co.kr.board.modules.framework.input.rest.dto.BoardCreate;
 import co.kr.board.modules.framework.input.rest.dto.BoardResponse;
+import co.kr.board.modules.framework.input.rest.dto.BoardUpdate;
 import co.kr.common.domain.vo.Identifier;
-import co.kr.user.modules.framework.input.rest.dto.UserCreate;
-import co.kr.user.modules.framework.input.rest.dto.UserResponse;
-import co.kr.user.modules.framework.input.rest.dto.UserUpdate;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/boards")
 @RequiredArgsConstructor
 public class BoardManagementAdapter {
-	private static final String USER_ID_PATH = "/{boardId}";
+	private static final String BOARD_ID_PATH = "/{boardId}";
 
 	private final BoardCreateUsecase boardCreateUsecase;
 	private final BoardUpdateUsecase boardUpdateUsecase;
@@ -39,52 +37,51 @@ public class BoardManagementAdapter {
 	 *  게시물 생성
 	 * </pre>
 	 *
-	 * @param userCreate User Create DTO
-	 * @return User ID
+	 * @param boardCreate Board Create DTO
+	 * @return Board ID
 	 */
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Identifier<String> create(@RequestBody @Valid BoardCreate userCreate) {
-		return boardCreateUsecase.create(userCreate);
+	public Identifier<Long> create(@RequestBody @Valid BoardCreate boardCreate) {
+		return boardCreateUsecase.create(boardCreate);
 	}
 
 	/**
 	 * <pre>
-	 *  사용자 조회
+	 *  게시물 조회
 	 * </pre>
 	 *
-	 * @param userId User ID
-	 * @return User Detail Response DTO
+	 * @param boardId board ID
+	 * @return Board Detail Response DTO
 	 */
-	@GetMapping(USER_ID_PATH)
+	@GetMapping(BOARD_ID_PATH)
 	public BoardResponse detail(@PathVariable Long boardId) {
 		return boardRetrieveUsecase.detail(boardId);
 	}
 
 	/**
 	 * <pre>
-	 *  사용자 수정
+	 *  게시물 수정
 	 * </pre>
 	 *
-	 * @param userId User ID
-	 * @return User Detail Response DTO
+	 * @param boardId Board ID
+	 * @return Board ID
 	 */
-	@PutMapping(USER_ID_PATH)
-	public Identifier<String> update(@PathVariable String userId, @RequestBody @Valid UserUpdate userUpdate) {
-		return userUpdateUsecase.update(userId, userUpdate);
+	@PutMapping(BOARD_ID_PATH)
+	public Identifier<Long> update(@PathVariable Long boardId, @RequestBody @Valid BoardUpdate boardUpdate) {
+		return boardUpdateUsecase.update(boardId, boardUpdate);
 	}
 
 	/**
 	 * <pre>
-	 *  사용자 삭제
+	 *  게시물 삭제
 	 * </pre>
 	 *
-	 * @param userId User ID
-	 * @return User Detail Response DTO
+	 * @param boardId Board ID
 	 */
-	@DeleteMapping(USER_ID_PATH)
+	@DeleteMapping(BOARD_ID_PATH)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable String userId) {
-		userDeleteUsecase.delete(userId);
+	public void delete(@PathVariable Long boardId) {
+		boardDeleteUsecase.delete(boardId);
 	}
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BoardRepository extends JpaRepository<BoardData, Long>  {
+public interface BoardRepository extends JpaRepository<BoardData, Long>, BoardRepositoryCustom  {
 
 	Optional<BoardData> findByIdAndUserId(Long id, String userId);
 }

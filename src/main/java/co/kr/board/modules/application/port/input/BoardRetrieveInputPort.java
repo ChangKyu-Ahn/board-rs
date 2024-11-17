@@ -4,7 +4,9 @@ import co.kr.board.modules.application.usecase.BoardRetrieveUsecase;
 import co.kr.board.modules.domain.entity.Board;
 import co.kr.board.modules.domain.mapper.BoardMapper;
 import co.kr.board.modules.framework.input.rest.dto.BoardResponse;
+import co.kr.board.modules.framework.input.rest.dto.BoardSearchDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,5 +17,10 @@ public class BoardRetrieveInputPort extends AbstractBoardInputPort implements Bo
 	public BoardResponse detail(Long boardId) {
 		Board board = boardManagementOutputPort.retrieve(boardId);
 		return BoardMapper.domainToResponseDto(board);
+	}
+
+	@Override
+	public Page<BoardResponse> list(BoardSearchDto boardSearchDto) {
+		return boardManagementOutputPort.retrieveAll(boardSearchDto);
 	}
 }

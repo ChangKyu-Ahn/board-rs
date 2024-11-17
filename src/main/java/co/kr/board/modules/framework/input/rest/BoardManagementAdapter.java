@@ -6,10 +6,12 @@ import co.kr.board.modules.application.usecase.BoardRetrieveUsecase;
 import co.kr.board.modules.application.usecase.BoardUpdateUsecase;
 import co.kr.board.modules.framework.input.rest.dto.BoardCreate;
 import co.kr.board.modules.framework.input.rest.dto.BoardResponse;
+import co.kr.board.modules.framework.input.rest.dto.BoardSearchDto;
 import co.kr.board.modules.framework.input.rest.dto.BoardUpdate;
 import co.kr.common.domain.vo.Identifier;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +46,19 @@ public class BoardManagementAdapter {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Identifier<Long> create(@RequestBody @Valid BoardCreate boardCreate) {
 		return boardCreateUsecase.create(boardCreate);
+	}
+
+	/**
+	 * <pre>
+	 *  게시물 목록 조회
+	 * </pre>
+	 *
+	 * @param boardSearchDto Board Search DTO
+	 * @return Board Paging Response DTO
+	 */
+	@GetMapping("/list")
+	public Page<BoardResponse> list(BoardSearchDto boardSearchDto) {
+		return boardRetrieveUsecase.list(boardSearchDto);
 	}
 
 	/**

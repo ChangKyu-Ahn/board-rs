@@ -7,7 +7,7 @@ spring:
   main:
     banner-mode: off
   datasource:
-    url: jdbc:log4jdbc:h2:mem:testdb;
+    url: jdbc:log4jdbc:h2:file:~/h2db/board;AUTO_SERVER=true
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     username: sa
     password:

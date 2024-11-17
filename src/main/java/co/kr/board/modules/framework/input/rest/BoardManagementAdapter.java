@@ -5,8 +5,8 @@ import co.kr.board.modules.application.usecase.BoardDeleteUsecase;
 import co.kr.board.modules.application.usecase.BoardRetrieveUsecase;
 import co.kr.board.modules.application.usecase.BoardUpdateUsecase;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +31,7 @@ public class BoardManagementAdapter extends AbstractBoardManagementAdapter{
 	 *
 	 * @param userId Board ID
 	 */
-	@DeleteMapping("/user/{userId}")
+	@PostMapping("/user/{userId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteAllByUserId(@PathVariable String userId) {
 		boardDeleteUsecase.deleteAllByUserId(userId);

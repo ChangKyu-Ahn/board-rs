@@ -4,18 +4,16 @@ import co.kr.board.modules.application.usecase.BoardCreateUsecase;
 import co.kr.board.modules.application.usecase.BoardDeleteUsecase;
 import co.kr.board.modules.application.usecase.BoardRetrieveUsecase;
 import co.kr.board.modules.application.usecase.BoardUpdateUsecase;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import co.kr.common.util.SecurityUtil;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/boards")
-public class BoardManagementAdapter extends AbstractBoardManagementAdapter{
+@RequestMapping(path = "/v1/boards")
+public class ExternalBoardManagementAdapter extends AbstractBoardManagementAdapter{
 
-	public BoardManagementAdapter(
+	public ExternalBoardManagementAdapter(
 		BoardCreateUsecase boardCreateUsecase,
 		BoardUpdateUsecase boardUpdateUsecase,
 		BoardDeleteUsecase boardDeleteUsecase,
@@ -29,11 +27,9 @@ public class BoardManagementAdapter extends AbstractBoardManagementAdapter{
 	 *  게시물 삭제 (유저 아이디)
 	 * </pre>
 	 *
-	 * @param userId Board ID
 	 */
-	@DeleteMapping("/user/{userId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteAllByUserId(@PathVariable String userId) {
-		boardDeleteUsecase.deleteAllByUserId(userId);
+	@PostMapping("/user")
+	public void deleteAllByUserId() {
+		boardDeleteUsecase.deleteAllByUserId(SecurityUtil.getUserId());
 	}
 }

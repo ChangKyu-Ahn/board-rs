@@ -67,6 +67,20 @@ public class BoardManagementRDBAdapter implements BoardManagementOutputPort {
 		boardRepository.delete(boardData);
 	}
 
+	@Override
+	public List<Long> deleteAllByUserId(String userId) {
+		List<BoardData> boardDataList = boardRepository.findAllByUserId(userId);
+
+		List<Long> boardDataIdList = //
+			boardDataList.stream()
+				.map(BoardData::getId)
+				.toList();
+
+		boardRepository.deleteAllInBatch(boardDataList);
+
+		return boardDataIdList;
+	}
+
 	private BoardData getBoardData(Long id) {
 		Optional<BoardData> board;
 

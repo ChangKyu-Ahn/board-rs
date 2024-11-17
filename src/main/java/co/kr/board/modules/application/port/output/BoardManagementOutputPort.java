@@ -18,4 +18,6 @@ public interface BoardManagementOutputPort {
 	void updateViewCount(List<Board> boardList);
 
 	void delete(Long id);
+
+	List<Long> deleteAllByUserId(String userId);
 }

@@ -13,6 +13,15 @@ public class BoardDeleteInputPort extends AbstractBoardInputPort implements Boar
 	@Override
 	public void delete(Long boardId) {
 		boardManagementOutputPort.delete(boardId);
+		deleteViewCountInfo(boardId);
+	}
+
+	@Override
+	public void deleteAllByUserId(String userId) {
+		boardManagementOutputPort.deleteAllByUserId(userId).forEach(this::deleteViewCountInfo);
+	}
+
+	private void deleteViewCountInfo(Long boardId) {
 		boardManagementRedisOutputPort.deleteViewCountInfo(boardId);
 	}
 }

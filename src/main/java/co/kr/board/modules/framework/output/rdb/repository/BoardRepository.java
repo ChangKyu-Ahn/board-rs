@@ -1,6 +1,7 @@
 package co.kr.board.modules.framework.output.rdb.repository;
 
 import co.kr.board.modules.framework.output.rdb.data.BoardData;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -16,4 +17,6 @@ public interface BoardRepository extends JpaRepository<BoardData, Long>, BoardRe
 	@Modifying
 	@Query("UPDATE BoardData b SET b.viewCount = :viewCount WHERE b.id = :id")
 	void updateViewCountById(@Param("id") Long id, @Param("viewCount") Long viewCount);
+
+	List<BoardData> findAllByUserId(String userId);
 }

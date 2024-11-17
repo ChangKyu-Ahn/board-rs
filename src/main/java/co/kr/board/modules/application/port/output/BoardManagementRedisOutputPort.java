@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface BoardManagementRedisOutputPort {
 	void incrementViewCount(Long boardId);
+	void deleteViewCountInfo(Long boardId);
 
 	List<Board> getBoardRedisDataList();
 }

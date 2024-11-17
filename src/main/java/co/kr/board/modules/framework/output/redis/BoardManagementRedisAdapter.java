@@ -28,9 +28,15 @@ public class BoardManagementRedisAdapter implements BoardManagementRedisOutputPo
 	@Async
 	@Override
 	public void incrementViewCount(Long boardId) {
-		String key = VIEW_COUNT_REDIS_PREFIX_KEY + boardId;
+		String key = getViewCountKey(boardId);
 		stringRedisTemplate.opsForValue().increment(key);
 		stringRedisTemplate.expire(key, Duration.ofDays(1));
+	}
+
+	@Async
+	@Override
+	public void deleteViewCountInfo(Long boardId) {
+		stringRedisTemplate.delete(getViewCountKey(boardId));
 	}
 
 	@Override
@@ -79,5 +85,9 @@ public class BoardManagementRedisAdapter implements BoardManagementRedisOutputPo
 			.id(boardId)
 			.viewCount(Long.parseLong(viewCount))
 			.build();
+	}
+
+	private String getViewCountKey(Long boardId) {
+		return VIEW_COUNT_REDIS_PREFIX_KEY + boardId;
 	}
 }

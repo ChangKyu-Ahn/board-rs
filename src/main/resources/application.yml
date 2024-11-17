@@ -1,6 +1,7 @@
 server:
   port: 8220
-
+  servlet:
+    context-path: /board
 spring:
   application:
     name: board-rs

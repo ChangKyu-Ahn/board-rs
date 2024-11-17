@@ -39,8 +39,4 @@ public class BoardData {
 		this.title = board.getTitle();
 		this.content = board.getContent();
 	}
-
-	public void updateCount(Long viewCount) {
-		this.viewCount = viewCount;
-	}
 }

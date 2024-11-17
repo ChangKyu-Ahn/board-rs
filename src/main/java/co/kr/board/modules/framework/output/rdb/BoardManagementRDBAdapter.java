@@ -8,9 +8,13 @@ import co.kr.board.modules.framework.input.rest.dto.BoardSearchDto;
 import co.kr.board.modules.framework.output.rdb.data.BoardData;
 import co.kr.board.modules.framework.output.rdb.mapper.BoardRDBMapper;
 import co.kr.board.modules.framework.output.rdb.repository.BoardRepository;
+import co.kr.common.domain.vo.Identifier;
 import co.kr.common.exception.NotExistDataException;
 import co.kr.common.util.SecurityUtil;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -48,6 +52,13 @@ public class BoardManagementRDBAdapter implements BoardManagementOutputPort {
 		data.update(board);
 
 		return BoardMapper.dataToDomain(data);
+	}
+
+	@Override
+	@Transactional
+	public void updateViewCount(List<Board> boardList) {
+		Map<Long, Long> boardViewCountMap = boardList.stream().collect(Collectors.toMap(Identifier::getId, Board::getViewCount));
+		boardViewCountMap.forEach(boardRepository::updateViewCountById);
 	}
 
 	@Override

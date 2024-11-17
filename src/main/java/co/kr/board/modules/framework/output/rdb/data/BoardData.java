@@ -40,7 +40,7 @@ public class BoardData {
 		this.content = board.getContent();
 	}
 
-	public void updateCount() {
-		this.viewCount += 1;
+	public void updateCount(Long viewCount) {
+		this.viewCount = viewCount;
 	}
 }

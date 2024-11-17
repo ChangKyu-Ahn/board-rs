@@ -5,4 +5,6 @@ import co.kr.common.domain.vo.Identifier;
 
 public interface BoardUpdateUsecase {
 	Identifier<Long> update(Long boardId, BoardUpdate boardUpdate);
+
+	void updateViewCount();
 }

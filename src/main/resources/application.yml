@@ -22,3 +22,8 @@ spring:
     redis:
       host: localhost
       port: 6379
+scheduled:
+  cron:
+    expression:
+      board:
+        count: 0 0/1 * * * *

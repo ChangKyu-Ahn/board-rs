@@ -1,5 +1,6 @@
 package co.kr.board.modules.application.port.input;
 
+import co.kr.board.modules.application.port.output.BoardManagementRedisOutputPort;
 import co.kr.board.modules.application.usecase.BoardRetrieveUsecase;
 import co.kr.board.modules.domain.entity.Board;
 import co.kr.board.modules.domain.mapper.BoardMapper;
@@ -12,10 +13,12 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BoardRetrieveInputPort extends AbstractBoardInputPort implements BoardRetrieveUsecase {
+	private final BoardManagementRedisOutputPort boardManagementRedisOutputPort;
 
 	@Override
 	public BoardResponse detail(Long boardId) {
 		Board board = boardManagementOutputPort.retrieve(boardId);
+		boardManagementRedisOutputPort.incrementViewCount(boardId);
 		return BoardMapper.domainToResponseDto(board);
 	}
 

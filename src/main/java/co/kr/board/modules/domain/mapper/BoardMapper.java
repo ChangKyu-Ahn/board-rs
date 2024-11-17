@@ -41,6 +41,7 @@ public class BoardMapper {
 			.title(board.getTitle())
 			.content(board.getContent())
 			.viewCount(board.getViewCount())
+			.userId(board.getUserId())
 			.build();
 	}
 
